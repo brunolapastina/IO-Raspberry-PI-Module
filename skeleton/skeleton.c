@@ -85,6 +85,7 @@ static int __init iopin_init(void)
    if ( NULL == g_astIOPinDevices )
    {
       unregister_chrdev_region( MKDEV(g_iIOPinMajor, 0), NumOfDevices );
+      class_destroy( g_pobjIOPinClass );
       return -ENOMEM;
    }
    
