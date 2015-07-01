@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <iopin_ioctl.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include "iopin_ioctl.h"
 
 int main( int argc, char* argv[] )
 {
@@ -14,8 +20,8 @@ int main( int argc, char* argv[] )
    if( 2 != argc )
    {
       printf( "Wrong usage!\n" );
-      printf( "Use:\n" )
-      printf( "\t%s <file-name>n", argv[0] );
+      printf( "Use:\n" );
+      printf( "\t%s <file-name>\n", argv[0] );
       return -1;
    }
    
@@ -36,7 +42,7 @@ int main( int argc, char* argv[] )
       printf( "Option: " );
       fflush( stdout );
       
-      scanf( "%s", &iOption );
+      scanf( "%d", &iOption );
       
       switch( iOption )
       {
@@ -44,7 +50,7 @@ int main( int argc, char* argv[] )
          {
             printf( "Value = " );
             fflush( stdout );
-            scanf( "%c", &chBuf );
+            scanf( "\n%c", &chBuf );
             
             iRet = write( fd, &chBuf, 1 );
             if( 0 > iRet )
@@ -55,7 +61,7 @@ int main( int argc, char* argv[] )
             break;
          }
          
-         case 1:
+         case 2:
          {
             iRet = read( fd, &chBuf, 1 );
             if( 0 > iRet )

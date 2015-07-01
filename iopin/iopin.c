@@ -14,8 +14,9 @@
 #include <asm/io.h>
 #include <asm/uaccess.h>
 
-#include <iopin.h>
-#include <iopin_ioctl.h>
+#include "rpiregisters.h"
+#include "iopin.h"
+#include "iopin_ioctl.h"
 
 #define DRIVER_AUTHOR   "Bruno La Pastina"
 #define DRIVER_DESC     "A basic IO module for the Raspberry PI"

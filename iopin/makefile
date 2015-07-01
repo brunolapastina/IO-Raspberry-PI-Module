@@ -1,5 +1,5 @@
 obj-m += iopin.o
-ccflags-y := -I$(src)
+ccflags-y := -I$(src) -I$(src)/../
 
 CROSS_COMPILE=~/raspberry/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-
 KDIR := ~/raspberry/linux
