@@ -1,7 +1,7 @@
 #ifndef _RPI_REGISTERS_H_
 #define _RPI_REGISTERS_H_
 
-//---[ GPIO Registers map ]---
+//------[ GPIO Registers map ]-----------------------------------------------------------
 struct SGpioRegistersMap
 {
    uint32_t GPFSEL[6];     // [R/W] GPIO Function Select
@@ -30,7 +30,7 @@ struct SGpioRegistersMap
    uint32_t GPPUDCLK[2];   // [R/W] GPIO Pin Pull-up/down Enable Clock
 };
 
-//---[ PWM Registers map ]---
+//------[ PWM Registers map ]------------------------------------------------------------
 struct SPWMRegistersMap
 {
    uint32_t CTL;           // PWM Control
@@ -45,7 +45,7 @@ struct SPWMRegistersMap
    uint32_t DAT2;          // PWM Channel 2 Data
 };
 
-//---[ PCM Registers map ]---
+//------[ PCM Registers map ]------------------------------------------------------------
 struct SPCMRegistersMap
 {
    uint32_t CS_A;          // PCM Control and Status
@@ -59,7 +59,34 @@ struct SPCMRegistersMap
    uint32_t GRAY;          // PCM Gray Mode Control
 };
 
-//---[ Clock Registers map ]---
+//------[ DMA Registers map ]------------------------------------------------------------
+
+struct SDMAChannelRegistersMap
+{
+   uint32_t CS;            // DMA Channel Control and Status
+   uint32_t CONBLK_AD;     // DMA Channel Control Block Address
+   uint32_t TI;            // DMA Channel CB Word 0 (Transfer Information)
+   uint32_t SOURCE_AD;     // DMA Channel CB Word 1 (Source Address)
+   uint32_t DEST_AD;       // DMA Channel CB Word 2 (Destination Address)
+   uint32_t TXFR_LEN ;     // DMA Channel CB Word 3 (Transfer Length) 
+   uint32_t STRIDE;        // DMA Channel CB Word 4 (2D Stride)
+   uint32_t NEXTCONBK;     // DMA Channel CB Word 5 (Next CB Address)
+   uint32_t DEBUG;         // DMA Channel Debug 
+};
+
+// This struct must start at a 256-bit aligned address.
+struct SDMAControlBlock
+{
+   uint32_t TI;            // Transfer Information
+   uint32_t SOURCE_AD;     // Source Address
+   uint32_t DEST_AD;       // Destination Address
+   uint32_t TXFR_LEN;      // Transfer Length
+   uint32_t STRIDE;        // 2D Mode Stride 
+   uint32_t NEXTCONBK;     // Next Control Block Address 
+   uint32_t Zeros[2];      // Reserved – set to zero
+};
+
+//------[ Clock Registers map ]----------------------------------------------------------
 // The clock map on the datasheet is not complete. It has only the GPIO clock.
 // I menage to find the PWM clock too, but anything is going to need some more research
 struct SClockManagerRegistersMap
