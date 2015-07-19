@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
+#include <poll.h>
 #include "iopin_ioctl.h"
 
 int main( int argc, char* argv[] )
@@ -38,6 +39,8 @@ int main( int argc, char* argv[] )
       printf( "[ 1] - Write value\n" );
       printf( "[ 2] - Read value\n" );
       printf( "[ 3] - Set function\n" );
+      printf( "[ 4] - Set interruption\n" );
+      printf( "[ 5] - Set Pull\n" );
       printf( "[ 0] - Exit\n" );
       printf( "Option: " );
       fflush( stdout );
@@ -82,6 +85,61 @@ int main( int argc, char* argv[] )
             scanf( "%lu", &ulValue );
             
             iRet = ioctl( fd, IOCTL_SET_FUNCTION, ulValue );
+            if( 0 > iRet )
+            {
+               printf( "Ioctl failed: (%d) %s\n", errno, strerror(errno) );
+            }
+            
+            break;
+         }
+         
+         case 4:
+         {
+            struct pollfd pfd;
+            int   iFlag = 0;
+            
+            printf( "Value = " );
+            fflush( stdout );
+            scanf( "%lu", &ulValue );
+            
+            iRet = ioctl( fd, IOCTL_SET_INTERRUPTION, ulValue );
+            if( 0 > iRet )
+            {
+               printf( "Ioctl failed: (%d) %s\n", errno, strerror(errno) );
+            }
+            
+            while( !iFlag )
+            {
+               pfd.fd      = fd;
+               pfd.events  = POLLIN|POLLRDNORM;
+               pfd.revents = 0;
+               printf( "Polling...\n" );
+               iRet = poll( &pfd, 1, 3000 );
+               if( 0 < iRet )
+               {
+                  //iFlag = 1;
+                  iRet = read( fd, &chBuf, 1 );
+                  if( 0 > iRet )
+                  {
+                     printf( "Read failed: (%d) %s\n", errno, strerror(errno) );
+                  }
+                  else
+                  {
+                     printf( "Poll Value = %c\n", chBuf );
+                  }
+               }
+            }
+            
+            break;
+         }
+         
+         case 5:
+         {
+            printf( "Value = " );
+            fflush( stdout );
+            scanf( "%lu", &ulValue );
+            
+            iRet = ioctl( fd, IOCTL_SET_PULL, ulValue );
             if( 0 > iRet )
             {
                printf( "Ioctl failed: (%d) %s\n", errno, strerror(errno) );

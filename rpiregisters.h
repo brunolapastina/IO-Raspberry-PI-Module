@@ -57,14 +57,14 @@ struct SGpioRegistersMap
 };
 
 // GPFSEL[] - GPIO Function Select Registers Values
-#define  GPIO_INPUT  0     // Pin is an Input
-#define  GPIO_OUTPUT 1     // Pin is an output
-#define  GPIO_ALT0   4     // Pin takes alternate function 0
-#define  GPIO_ALT1   5     // Pin takes alternate function 1
-#define  GPIO_ALT2   6     // Pin takes alternate function 2
-#define  GPIO_ALT3   7     // Pin takes alternate function 3
-#define  GPIO_ALT4   3     // Pin takes alternate function 4
-#define  GPIO_ALT5   2     // Pin takes alternate function 5
+#define  GPIO_INPUT        0     // Pin is an Input
+#define  GPIO_OUTPUT       1     // Pin is an output
+#define  GPIO_ALT0         4     // Pin takes alternate function 0
+#define  GPIO_ALT1         5     // Pin takes alternate function 1
+#define  GPIO_ALT2         6     // Pin takes alternate function 2
+#define  GPIO_ALT3         7     // Pin takes alternate function 3
+#define  GPIO_ALT4         3     // Pin takes alternate function 4
+#define  GPIO_ALT5         2     // Pin takes alternate function 5
 
 
 //------[ PWM Registers map ]------------------------------------------------------------
@@ -83,41 +83,41 @@ struct SPWMRegistersMap
 };
 
 // CTL Register
-#define  MSEN2       15    // Channel 2 M/S Enable
-#define  USEF2       13    // Channel 1 Use Fifo
-#define  POLA2       12    // Channel 1 Polarity
-#define  SBIT2       11    // Channel 1 Silence Bit
-#define  RPTL2       10    // Channel 1 Repeat Last Data
-#define  MODE2       9     // Channel 1 Mode
-#define  PWEN2       8     // Channel 1 Enable
-#define  MSEN1       7     // Channel 1 M/S Enable
-#define  CLRF1       6     // Clear Fifo
-#define  USEF1       5     // Channel 1 Use Fifo
-#define  POLA1       4     // Channel 1 Polarity
-#define  SBIT1       3     // Channel 1 Silence Bit
-#define  RPTL1       2     // Channel 1 Repeat Last Data
-#define  MODE1       1     // Channel 1 Mode
-#define  PWEN1       0     // Channel 1 Enable
+#define  PWM_MSEN2         15    // Channel 2 M/S Enable
+#define  PWM_USEF2         13    // Channel 1 Use Fifo
+#define  PWM_POLA2         12    // Channel 1 Polarity
+#define  PWM_SBIT2         11    // Channel 1 Silence Bit
+#define  PWM_RPTL2         10    // Channel 1 Repeat Last Data
+#define  PWM_MODE2         9     // Channel 1 Mode
+#define  PWM_PWEN2         8     // Channel 1 Enable
+#define  PWM_MSEN1         7     // Channel 1 M/S Enable
+#define  PWM_CLRF1         6     // Clear Fifo
+#define  PWM_USEF1         5     // Channel 1 Use Fifo
+#define  PWM_POLA1         4     // Channel 1 Polarity
+#define  PWM_SBIT1         3     // Channel 1 Silence Bit
+#define  PWM_RPTL1         2     // Channel 1 Repeat Last Data
+#define  PWM_MODE1         1     // Channel 1 Mode
+#define  PWM_PWEN1         0     // Channel 1 Enable
 
 // STA Register
-#define  STA4        12    // Channel 4 State
-#define  STA3        11    // Channel 3 State RW 0x0
-#define  STA2        10    // Channel 2 State
-#define  STA1        9     // Channel 1 State
-#define  BERR        8     // Bus Error Flag RW 0x0
-#define  GAPO4       7     // Channel 4 Gap Occurred Flag
-#define  GAPO3       6     // Channel 3 Gap Occurred Flag
-#define  GAPO2       5     // Channel 2 Gap Occurred Flag
-#define  GAPO1       4     // Channel 1 Gap Occurred Flag
-#define  RERR1       3     // Fifo Read Error Flag
-#define  WERR1       2     // Fifo Write Error Flag
-#define  EMPT1       1     // Fifo Empty Flag RW 0x1
-#define  FULL1       0     // Fifo Full Flag
+#define  PWM_STA4          12    // Channel 4 State
+#define  PWM_STA3          11    // Channel 3 State RW 0x0
+#define  PWM_STA2          10    // Channel 2 State
+#define  PWM_STA1          9     // Channel 1 State
+#define  PWM_BERR          8     // Bus Error Flag RW 0x0
+#define  PWM_GAPO4         7     // Channel 4 Gap Occurred Flag
+#define  PWM_GAPO3         6     // Channel 3 Gap Occurred Flag
+#define  PWM_GAPO2         5     // Channel 2 Gap Occurred Flag
+#define  PWM_GAPO1         4     // Channel 1 Gap Occurred Flag
+#define  PWM_RERR1         3     // Fifo Read Error Flag
+#define  PWM_WERR1         2     // Fifo Write Error Flag
+#define  PWM_EMPT1         1     // Fifo Empty Flag RW 0x1
+#define  PWM_FULL1         0     // Fifo Full Flag
 
 // DMAC Register
-#define  ENAB        31    // DMA Enable
-#define  PANIC       8     // DMA Threshold for PANIC signal
-#define  DREQ        0     // DMA Threshold for DREQ signal
+#define  PWM_ENAB          31    // DMA Enable
+#define  PWM_PANIC         8     // DMA Threshold for PANIC signal
+#define  PWM_DREQ          0     // DMA Threshold for DREQ signal
 
 //------[ PCM Registers map ]------------------------------------------------------------
 struct SPCMRegistersMap
@@ -134,70 +134,70 @@ struct SPCMRegistersMap
 };
 
 // CS_A Register
-#define  STBY        25    // RAM Standby
-#define  SYNC        24    // PCM Clock sync helper.
-#define  RXSEX       23    // RX Sign Extend
-#define  RXF         22    // RX FIFO is Full
-#define  TXE         21    // TX FIFO is Empty
-#define  RXD         20    // Indicates that the RX FIFO contains data
-#define  TXD         19    // Indicates that the TX FIFO can accept data
-#define  RXR         18    // Indicates that the RX FIFO needs reading
-#define  TXW         17    // Indicates that the TX FIFO needs Writing
-#define  RXERR       16    // RX FIFO Error
-#define  TXERR       15    // TX FIFO Error
-#define  RXSYNC      14    // RX FIFO Sync
-#define  TXSYNC      13    // TX FIFO Sync
-#define  DMAEN       9     // DMA DREQ Enable
-#define  RXTHR       7     // Sets the RX FIFO threshold at which point the RXR flag is set
-#define  TXTHR       5     // Sets the TX FIFO threshold at which point the TXW flag is set
-#define  RXCLR       4     // Clear the RX FIFO
-#define  TXCLR       3     // Clear the TX FIFO
-#define  TXON        2     // Enable transmission
-#define  RXON        1     // Enable reception
-#define  PCM_EN      0     // Enable the PCM Audio Interface
+#define  PCM_STBY          25    // RAM Standby
+#define  PCM_SYNC          24    // PCM Clock sync helper.
+#define  PCM_RXSEX         23    // RX Sign Extend
+#define  PCM_RXF           22    // RX FIFO is Full
+#define  PCM_TXE           21    // TX FIFO is Empty
+#define  PCM_RXD           20    // Indicates that the RX FIFO contains data
+#define  PCM_TXD           19    // Indicates that the TX FIFO can accept data
+#define  PCM_RXR           18    // Indicates that the RX FIFO needs reading
+#define  PCM_TXW           17    // Indicates that the TX FIFO needs Writing
+#define  PCM_RXERR         16    // RX FIFO Error
+#define  PCM_TXERR         15    // TX FIFO Error
+#define  PCM_RXSYNC        14    // RX FIFO Sync
+#define  PCM_TXSYNC        13    // TX FIFO Sync
+#define  PCM_DMAEN         9     // DMA DREQ Enable
+#define  PCM_RXTHR         7     // Sets the RX FIFO threshold at which point the RXR flag is set
+#define  PCM_TXTHR         5     // Sets the TX FIFO threshold at which point the TXW flag is set
+#define  PCM_RXCLR         4     // Clear the RX FIFO
+#define  PCM_TXCLR         3     // Clear the TX FIFO
+#define  PCM_TXON          2     // Enable transmission
+#define  PCM_RXON          1     // Enable reception
+#define  PCM_EN            0     // Enable the PCM Audio Interface
 
 // MODE_A Register
-#define  CLK_DIS     28    // PCM Clock Disable
-#define  PDMN        27    // PDM Decimation Factor (N)
-#define  PDME        26    // PDM Input Mode Enable
-#define  FRXP        25    // Receive Frame Packed Mode
-#define  FTXP        24    // Transmit Frame Packed Mode
-#define  CLKM        23    // PCM Clock Mode
-#define  CLKI        22    // Clock Invert this logically inverts the PCM_CLK signal
-#define  FSM         21    // Frame Sync Mode
-#define  FSI         20    // Frame Sync Invert This logically inverts the frame sync signal
-#define  FLEN        10    // Frame Length
-#define  FSLEN       0     // Frame Sync Length
+#define  PCM_CLK_DIS       28    // PCM Clock Disable
+#define  PCM_PDMN          27    // PDM Decimation Factor (N)
+#define  PCM_PDME          26    // PDM Input Mode Enable
+#define  PCM_FRXP          25    // Receive Frame Packed Mode
+#define  PCM_FTXP          24    // Transmit Frame Packed Mode
+#define  PCM_CLKM          23    // PCM Clock Mode
+#define  PCM_CLKI          22    // Clock Invert this logically inverts the PCM_CLK signal
+#define  PCM_FSM           21    // Frame Sync Mode
+#define  PCM_FSI           20    // Frame Sync Invert This logically inverts the frame sync signal
+#define  PCM_FLEN          10    // Frame Length
+#define  PCM_FSLEN         0     // Frame Sync Length
 
 // RXC_A and TXC_A Registers
-#define  CH1WEX      31    // Channel 1 Width Extension Bit
-#define  CH1EN       30    // Channel 1 Enable
-#define  CH1POS      20    // Channel 1 Position
-#define  CH1WID      16    // Channel 1 Width
-#define  CH2WEX      15    // Channel 2 Width Extension Bit
-#define  CH2EN       14    // Channel 2 Enable
-#define  CH2POS      4     // Channel 2 Position
-#define  CH2WID      0     // Channel 2 Width
+#define  PCM_CH1WEX        31    // Channel 1 Width Extension Bit
+#define  PCM_CH1EN         30    // Channel 1 Enable
+#define  PCM_CH1POS        20    // Channel 1 Position
+#define  PCM_CH1WID        16    // Channel 1 Width
+#define  PCM_CH2WEX        15    // Channel 2 Width Extension Bit
+#define  PCM_CH2EN         14    // Channel 2 Enable
+#define  PCM_CH2POS        4     // Channel 2 Position
+#define  PCM_CH2WID        0     // Channel 2 Width
 
 // DREQ_A Register
-#define  TX_PANIC    24    // TX Panic Level
-#define  RX_PANIC    16    // RX Panic Level
-#define  TX          8     // TX Request Level
-#define  RX          0     // RX Request Level
+#define  PCM_TX_PANIC      24    // TX Panic Level
+#define  PCM_RX_PANIC      16    // RX Panic Level
+#define  PCM_TX            8     // TX Request Level
+#define  PCM_RX            0     // RX Request Level
 
 // INTEN_A and INTSTC_A Registers
-#define  RXERR       3     // RX Error Interrupt
-#define  TXERR       2     // TX Error Interrupt
-#define  RXR         1     // RX Read Interrupt Enable
-#define  TXW         0     // TX Write Interrupt Enable
+#define  PCM_RXERR_INT_EN  3     // RX Error Interrupt
+#define  PCM_TXERR_INT_EN  2     // TX Error Interrupt
+#define  PCM_RXR_INT_EN    1     // RX Read Interrupt Enable
+#define  PCM_TXW_INT_EN    0     // TX Write Interrupt Enable
 
 // GRAY Register
-#define  RXFIFOLEVEL 16    // The Current level of the RXFIFO
-#define  FLUSHED     10    // The Number of bits that were flushed into the RXFIFO
-#define  RXLEVEL     4     // The Current fill level of the RX Buffer
-#define  FLUSH       2     // Flush the RX Buffer into the RX FIFO
-#define  CLR         1     // Clear the GRAY Mode Logic
-#define  GRAY_EN     0     // Enable GRAY Mode
+#define  PCM_RXFIFOLEVEL   16    // The Current level of the RXFIFO
+#define  PCM_FLUSHED       10    // The Number of bits that were flushed into the RXFIFO
+#define  PCM_RXLEVEL       4     // The Current fill level of the RX Buffer
+#define  PCM_FLUSH         2     // Flush the RX Buffer into the RX FIFO
+#define  PCM_CLR           1     // Clear the GRAY Mode Logic
+#define  PCM_GRAY_EN       0     // Enable GRAY Mode
 
 //------[ DMA Registers map ]------------------------------------------------------------
 
@@ -243,20 +243,20 @@ struct SDMAControlBlock
 #define  DMA14_BASE  DMA0_BASE+0xE00   // DMA Channel 14 Register Set
 
 // CS Registers
-#define  RESET       31    // DMA Channel Reset
-#define  ABORT       30    // Abort DMA
-#define  DISDEBUG    29    // Disable debug pause signal
-#define  WAIT_FOR_OUTSTANDING_WRITES      28    // Wait for outstanding writes
-#define  PANIC_PRIORITY                   20    // AXI Panic Priority Level
-#define  PRIORITY    16    // AXI Priority Level
-#define  ERROR       8     // DMA Error
-#define  WAITING_FOR_OUTSTANDING_WRITES   6     // DMA is Waiting for the Last Write to be Received
-#define  DREQ_STOPS_DMA                   5     // DMA Paused by DREQ State
-#define  PAUSED      4     // DMA Paused State
-#define  DREQ        3     // DREQ State
-#define  INT         2     // Interrupt Status
-#define  END         1     // DMA End Flag
-#define  ACTIVE      0     // Activate the DMA
+#define  DMA_RESET                           31    // DMA Channel Reset
+#define  DMA_ABORT                           30    // Abort DMA
+#define  DMA_DISDEBUG                        29    // Disable debug pause signal
+#define  DMA_WAIT_FOR_OUTSTANDING_WRITES     28    // Wait for outstanding writes
+#define  DMA_PANIC_PRIORITY                  20    // AXI Panic Priority Level
+#define  DMA_PRIORITY                        16    // AXI Priority Level
+#define  DMA_ERROR                           8     // DMA Error
+#define  DMA_WAITING_FOR_OUTSTANDING_WRITES  6     // DMA is Waiting for the Last Write to be Received
+#define  DMA_DREQ_STOPS_DMA                  5     // DMA Paused by DREQ State
+#define  DMA_PAUSED                          4     // DMA Paused State
+#define  DMA_DREQ                            3     // DREQ State
+#define  DMA_INT                             2     // Interrupt Status
+#define  DMA_END                             1     // DMA End Flag
+#define  DMA_ACTIVE                          0     // Activate the DMA
 
 
 //------[ Clock Registers map ]----------------------------------------------------------

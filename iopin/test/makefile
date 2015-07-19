@@ -17,5 +17,5 @@ all: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
-	rm *.o
-	rm $(OUT)
+	rm -f *.o
+	rm -f $(OUT)
