@@ -10,7 +10,7 @@ struct SIOPinDev
    ulong             ulPin;
 };
 
-static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, struct class* pobjClass );
+static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, int iPin, struct class* pobjClass );
 static irqreturn_t GPIOIntHandler( int iIRQ, void* dev_id );
 
 int iopin_open(struct inode *inode, struct file *filp);

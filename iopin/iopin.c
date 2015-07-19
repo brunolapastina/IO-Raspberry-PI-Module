@@ -34,10 +34,10 @@ MODULE_DESCRIPTION( DRIVER_DESC );
 #define  IRQ_GPIO_0     49          // IRQ for gpio_int[0]
 
 //-----[ Module parameters ]------
-static unsigned long NumOfDevices = 1;
-
-module_param( NumOfDevices, ulong, S_IRUGO );
-MODULE_PARM_DESC( NumOfDevices, "Number of devices to be created" );
+static unsigned long pins[40];
+static int NumOfDevices;
+module_param_array( pins, ulong, &NumOfDevices, S_IRUGO );
+MODULE_PARM_DESC( pins, "Comma-separated list of pins to be exported" );
 
 //------[ Module operations ]------
 struct file_operations g_stIOPinFops =
@@ -62,6 +62,14 @@ static int __init iopin_init(void)
    dev_t dev = 0;
    int   iRet;
    int   i;
+   
+   printk( KERN_INFO "[IOPin] Loading module to export %d pin%s...\n", NumOfDevices, ((1 < NumOfDevices)? "s": "") );
+   
+   if( 0 >= NumOfDevices )
+   {
+      printk( KERN_ERR "[IOPin] FAILED TO LOAD: No pin specified\n" );
+      return -EINVAL;
+   }
    
    g_pstGpioRegisters = (struct SGpioRegistersMap*) ioremap( GPIO_BASE, sizeof(struct SGpioRegistersMap) );    // Should the size be GPIO_SIZE???
    if( NULL == g_pstGpioRegisters )
@@ -108,7 +116,7 @@ static int __init iopin_init(void)
    
    for( i = 0; i < NumOfDevices; i++ )
    {  // Create /dev devices
-      iRet = ContructDevice( &g_astIOPinDevices[i], i, g_pobjIOPinClass );
+      iRet = ContructDevice( &g_astIOPinDevices[i], i, pins[i], g_pobjIOPinClass );
       if ( iRet )
       {  // Error
          for( i -= 1; i >= 0; i-- )
@@ -167,7 +175,7 @@ static void __exit iopin_exit(void)
 module_init( iopin_init );
 module_exit( iopin_exit );
 
-static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, struct class* pobjClass )
+static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, int iPin, struct class* pobjClass )
 {
    int iRet;
    dev_t devno = MKDEV( g_iIOPinMajor, iMinor );
@@ -175,12 +183,13 @@ static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, struct class* 
    
    BUG_ON( (NULL == pobjDev) || (NULL == pobjClass) );
    
+   printk( KERN_INFO "[IOPin] Exporting GPIO %d to /dev/%s%d\n", iPin, DEVICE_NAME, iPin );
+   
    cdev_init( &pobjDev->stCdev, &g_stIOPinFops );
    pobjDev->stCdev.owner = THIS_MODULE;
    init_waitqueue_head( &pobjDev->irq_wait );
    pobjDev->iMinor = iMinor;
-   #warning !!!!!! Change the pin number !!!!!!
-   pobjDev->ulPin = 7;
+   pobjDev->ulPin = iPin;
    
    iRet = cdev_add( &pobjDev->stCdev, devno, 1 );
    if (iRet)
@@ -189,7 +198,7 @@ static int ContructDevice( struct SIOPinDev* pobjDev, int iMinor, struct class* 
       return iRet;
    }
 
-   pstDevice = device_create( pobjClass, NULL, devno, NULL, DEVICE_NAME "%d", iMinor);
+   pstDevice = device_create( pobjClass, NULL, devno, NULL, DEVICE_NAME "%d", iPin);
    if ( IS_ERR( pstDevice ) )
    {
       iRet = PTR_ERR( pstDevice );
