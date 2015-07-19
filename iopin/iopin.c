@@ -23,14 +23,15 @@
 #include "iopin.h"
 #include "iopin_ioctl.h"
 
-#define DRIVER_AUTHOR   "Bruno La Pastina"
-#define DRIVER_DESC     "A basic IO module for the Raspberry PI"
+#define  DRIVER_AUTHOR  "Bruno La Pastina <brunolap@gmail.com>"
+#define  DRIVER_DESC    "A basic GPIO module for the Raspberry PI"
+#define  DEVICE_NAME    "iopin"        // Dev name as it appears in /proc/devices
 
 MODULE_LICENSE( "GPL" );
 MODULE_AUTHOR( DRIVER_AUTHOR );
 MODULE_DESCRIPTION( DRIVER_DESC );
+MODULE_SUPPORTED_DEVICE( DEVICE_NAME );
 
-#define  DEVICE_NAME     "iopin"    // Dev name as it appears in /proc/devices
 #define  IRQ_GPIO_0     49          // IRQ for gpio_int[0]
 
 //-----[ Module parameters ]------
