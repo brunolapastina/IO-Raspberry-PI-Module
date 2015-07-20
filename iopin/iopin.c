@@ -284,6 +284,10 @@ int iopin_open(struct inode* inode, struct file* filp)
 int iopin_release(struct inode* inode, struct file* filp)
 {
    struct SIOPinDev* dev = (struct SIOPinDev*)filp->private_data;
+   unsigned int uiRegisterIndex;
+   unsigned int uiBit;
+   unsigned int uiOldValue;
+   unsigned int uiMask;
    
    //printk( KERN_INFO "[IOPin] release: Releasing minor %d\n", dev->iMinor );
    
@@ -293,7 +297,20 @@ int iopin_release(struct inode* inode, struct file* filp)
       return -ENODEV;
    }
    
-   free_irq( ( IRQ_GPIO_0 + (dev->ulPin / 10) ), dev );
+   //Disable all interruptions
+   iowrite32( 0 << (dev->ulPin % 32), &g_pstGpioRegisters->GPREN[ dev->ulPin / 32 ] );    // Disable rising edge interruption
+   iowrite32( 0 << (dev->ulPin % 32), &g_pstGpioRegisters->GPFEN[ dev->ulPin / 32 ] );    // Disable falling edge interruption
+   iowrite32( 0 << (dev->ulPin % 32), &g_pstGpioRegisters->GPHEN[ dev->ulPin / 32 ] );    // Disable high detect interruption
+   iowrite32( 0 << (dev->ulPin % 32), &g_pstGpioRegisters->GPLEN[ dev->ulPin / 32 ] );    // Disable low detect interruption
+   
+   // Set pin as input
+   uiRegisterIndex = dev->ulPin / 10;
+   uiBit = (dev->ulPin % 10) * 3;
+   uiOldValue = ioread32( &g_pstGpioRegisters->GPFSEL[uiRegisterIndex] );
+   uiMask = 0b111 << uiBit;
+   iowrite32( (uiOldValue & ~uiMask) | ((PIN_FUNCTION_INPUT << uiBit) & uiMask), &g_pstGpioRegisters->GPFSEL[uiRegisterIndex] );
+   
+   free_irq( ( IRQ_GPIO_0 + (dev->ulPin / 32) ), dev );
    
    return 0;
 }
